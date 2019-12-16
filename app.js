@@ -2,7 +2,13 @@ const express = require('express');
 const app = express();
 const path = require('path');
 
-app.use('/public/assets', express.static(path.join(__dirname, './public')));
+app.use('/css', express.static(path.join(__dirname, './public/css')));
+
+app.use('/js', express.static(path.join(__dirname, './public/js')));
+
+app.use('/images', express.static(path.join(__dirname, './public/images')));
+
+app.use('/assets', express.static(path.join(__dirname, './public/assets')));
 
 app.use('/', (req, res, next) => {
 	console.log('Request url: ' + req.url);
