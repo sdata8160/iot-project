@@ -4,7 +4,7 @@ const path = require('path');
 const fs = require('fs');
 
 
-const port = 4430;
+const port = process.env.PORT || 4321;
 
 const httpsOptions = {
     key: fs.readFileSync(path.join(__dirname, 'ssl', 'server.key')),
@@ -14,6 +14,6 @@ const httpsOptions = {
 
 const server = https.createServer(httpsOptions, app);
 
-server.listen(port, () =>{
+server.listen(port, () => {
     console.log(`Server up at https://localhost:${port}`);
 });
