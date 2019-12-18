@@ -1,8 +1,32 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const flash = require('connect-flash');
+const expressSession = require('express-session');
+const passport = require('passport');
 
-const bodyParser = require('body-parser');
+//passport config
+require('./config/passport')(passport);
+
+//db
+const db = require('./config/db');
+
+//bodyparser
+app.use(express.urlencoded({extended: false}));
+
+//express session
+app.use(expressSession({
+	secret: '&^%^%$%#^*&*&T6&^&Tt7T&T&T&$#%$$^%&^',
+	resave: false,
+	saveUninitialized:false
+}));
+
+//passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+//connect flash
+app.use(flash());
 
 //Routes
 const indexRoute = require('./routes/index');
