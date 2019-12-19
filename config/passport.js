@@ -30,6 +30,7 @@ module.exports = function(passport) {
   );
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   passport.serializeUser(function(user, done) {
     done(null, user.id);
   });
@@ -50,6 +51,11 @@ module.exports = function(passport) {
         done(null, user.id);
     });
 >>>>>>> some changes
+=======
+  passport.serializeUser(function(user, done) {
+    done(null, user.id);
+  });
+>>>>>>> views
 
   passport.deserializeUser(function(id, done) {
     User.findById(id, function(err, user) {
