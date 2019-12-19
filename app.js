@@ -4,6 +4,11 @@ const path = require('path');
 const flash = require('connect-flash');
 const expressSession = require('express-session');
 const passport = require('passport');
+const expressLayouts = require('express-ejs-layouts');
+
+//EJS 
+app.use(expressLayouts);
+app.set('view engine','ejs');
 
 //passport config
 require('./config/passport')(passport);

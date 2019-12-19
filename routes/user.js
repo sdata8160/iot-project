@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const path=require('path');
+const bcrypt = require('bcryptjs');
+
+// user model
+const User = require('../models/User');
 
 router.get('/dashboard', (req, res, next) => {
     res.sendFile(path.join(__dirname,'../public/dashboard.html'));
@@ -14,16 +18,12 @@ router.get('/temperature', (req, res, next) => {
     res.sendFile(path.join(__dirname,'../public/temperature.html'));
 });
 
-router.get('/login', (req, res, next) => {
-    res.sendFile(path.join(__dirname,'../public/login.html'));
-});
+router.get('/login', (req, res) => res.render('login'));
 
-router.get('/register', (req, res, next) => {
-    res.sendFile(path.join(__dirname,'../public/register.html'));
-});
+router.get('/register', (req, res) => render('register'));
 
 router.post('/register', (req, res, next) => {
-    const {name, email, password, password} = req.body;
+    const {name, email, password, password2} = req.body;
     let errors = [];
 
     //check required fields
@@ -42,7 +42,7 @@ router.post('/register', (req, res, next) => {
     }
 
     if(errors.length > 0) {
-        res.sendFile(path.join(__dirname,'../public/register.html'), {
+        res.render('register', {
             errors,
             name,
             email,
@@ -50,7 +50,30 @@ router.post('/register', (req, res, next) => {
             password2
         });
     } else{
-        res.send('pass');
+        //validation passed
+        User.findOne({email: email})
+        .then(user => {
+            if(user){
+                //User Exists
+                errors.push({msg: 'Email is already registered'});
+                res.render('register', {
+                    errors,
+                    name,
+                    email,
+                    password,
+                    password2
+               });     
+            } else {
+                const newUser = new User({
+                    name,
+                    email,
+                    password
+                });
+
+                console.log('newUser')
+
+            }
+        });
     }
 });
 
