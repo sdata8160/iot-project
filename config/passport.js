@@ -29,9 +29,27 @@ module.exports = function(passport) {
     })
   );
 
+<<<<<<< HEAD
   passport.serializeUser(function(user, done) {
     done(null, user.id);
   });
+=======
+                   if(isMatch){
+                       return done(null, user);
+                   } else {
+                       return done(null, false, {message: 'incorrect password'});
+                   }
+               });
+           })
+           .catch(err => console.log(err));
+        })
+    );
+    
+    //serialize the user
+    passport.serializeUser((User, done) => {
+        done(null, user.id);
+    });
+>>>>>>> some changes
 
   passport.deserializeUser(function(id, done) {
     User.findById(id, function(err, user) {
