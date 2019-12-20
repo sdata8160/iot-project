@@ -4,7 +4,7 @@ const path=require('path');
 const bcrypt = require('bcryptjs');
 
 // user model
-const User = require('../models/User');
+const User = require('../models/user');
 
 router.get('/dashboard', (req, res, next) => {
     res.sendFile(path.join(__dirname,'../public/dashboard.html'));
@@ -20,7 +20,7 @@ router.get('/temperature', (req, res, next) => {
 
 router.get('/login', (req, res) => res.render('login'));
 
-router.get('/register', (req, res) => render('register'));
+router.get('/register', (req, res) => res.render('register'));
 
 router.post('/register', (req, res, next) => {
     const {name, email, password, password2} = req.body;
